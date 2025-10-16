@@ -11,34 +11,33 @@ import { Button } from '@/components/ui/button';
 
 interface ReaderNavigationProps {
   comicSlug: string;
-  prevChapterId?: string;
-  nextChapterId?: string;
   chapterNumber: number;
   totalChapters: number;
 }
 
 export function ReaderNavigation({
   comicSlug,
-  prevChapterId,
-  nextChapterId,
   chapterNumber,
-  totalChapters
+  totalChapters,
 }: ReaderNavigationProps) {
   const router = useRouter();
+
+  const isPrev = chapterNumber > 0;
+  const isNext = chapterNumber < totalChapters;
 
   // Keyboard navigation
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowLeft' && prevChapterId) {
-        router.push(`/comic/${comicSlug}/chapter/${prevChapterId}`);
-      } else if (e.key === 'ArrowRight' && nextChapterId) {
-        router.push(`/comic/${comicSlug}/chapter/${nextChapterId}`);
+      if (e.key === 'ArrowLeft' && isPrev) {
+        router.push(`/comic/${comicSlug}/chapter/${chapterNumber - 1}`);
+      } else if (e.key === 'ArrowRight' && isNext) {
+        router.push(`/comic/${comicSlug}/chapter/${chapterNumber + 1}`);
       }
     };
 
     window.addEventListener('keydown', handleKeyPress);
     return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [comicSlug, prevChapterId, nextChapterId, router]);
+  }, [chapterNumber, comicSlug, isNext, isPrev, router]);
 
   return (
     <div className="sticky top-16 z-40 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -67,9 +66,9 @@ export function ReaderNavigation({
           </div>
 
           <div className="flex items-center gap-2">
-            {prevChapterId ? (
+            {isPrev ? (
               <Button variant="ghost" size="sm" asChild className="gap-1">
-                <Link href={`/comic/${comicSlug}/chapter/${prevChapterId}`}>
+                <Link href={`/comic/${comicSlug}/chapter/${chapterNumber - 1}`}>
                   <ChevronLeft className="h-4 w-4" />
                   <span className="hidden sm:inline">Prev</span>
                 </Link>
@@ -81,9 +80,9 @@ export function ReaderNavigation({
               </Button>
             )}
 
-            {nextChapterId ? (
+            {isNext ? (
               <Button variant="default" size="sm" asChild className="gap-1">
-                <Link href={`/comic/${comicSlug}/chapter/${nextChapterId}`}>
+                <Link href={`/comic/${comicSlug}/chapter/${chapterNumber + 1}`}>
                   <span className="hidden sm:inline">Next</span>
                   <ChevronRight className="h-4 w-4" />
                 </Link>

@@ -4,50 +4,15 @@ import { useMemo, useState } from 'react';
 
 import { Clock, Star, TrendingUp } from 'lucide-react';
 
-import {
-  CategoryFilter,
-  ComicCard,
-  Container,
-  FeaturedComics
-} from '@/components';
+import { CategoryFilter, ComicCard, Container, FeaturedComics } from '@/components';
 import { Button } from '@/components/ui/button';
+import { useComics } from '@/hooks';
 import { comics } from '@/lib/data/comics';
 
 export default function HomePage() {
-  const [selectedCategory, setSelectedCategory] = useState('All');
-  const [sortBy, setSortBy] = useState<'trending' | 'latest' | 'rating'>(
-    'trending'
-  );
+  const [sortBy, setSortBy] = useState<'trending' | 'latest' | 'rating'>('trending');
 
-  const filteredAndSortedComics = useMemo(() => {
-    let filtered = comics;
-
-    // Filter by category
-    if (selectedCategory !== 'All') {
-      filtered = filtered.filter((comic) =>
-        comic.genres.includes(selectedCategory)
-      );
-    }
-
-    // Sort
-    const sorted = [...filtered].sort((a, b) => {
-      switch (sortBy) {
-        case 'trending':
-          return b.views - a.views;
-        case 'latest':
-          return (
-            new Date(b.lastUpdated).getTime() -
-            new Date(a.lastUpdated).getTime()
-          );
-        case 'rating':
-          return b.rating - a.rating;
-        default:
-          return 0;
-      }
-    });
-
-    return sorted;
-  }, [selectedCategory, sortBy]);
+  const { data: series } = useComics({ page: 1, limit: 10 });
 
   const featuredComics = useMemo(() => {
     return [...comics].sort((a, b) => b.rating - a.rating).slice(0, 8);
@@ -64,8 +29,8 @@ export default function HomePage() {
                 Khám phá truyện tranh yêu thích tiếp theo của bạn
               </h1>
               <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                Khám phá hàng nghìn câu chuyện hấp dẫn thuộc mọi thể loại. Bắt
-                đầu hành trình đọc truyện của bạn ngay hôm nay.
+                Khám phá hàng nghìn câu chuyện hấp dẫn thuộc mọi thể loại. Bắt đầu hành trình đọc
+                truyện của bạn ngay hôm nay.
               </p>
               <Button size="lg" className="rounded-full">
                 Khám phá ngay
@@ -80,9 +45,7 @@ export default function HomePage() {
         {/* Filters Section */}
         <section className="mb-8 space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <h2 className="text-2xl font-bold text-foreground">
-              Danh sách truyện
-            </h2>
+            <h2 className="text-2xl font-bold text-foreground">Danh sách truyện</h2>
             <div className="flex gap-2">
               <Button
                 variant={sortBy === 'trending' ? 'default' : 'outline'}
@@ -114,22 +77,20 @@ export default function HomePage() {
             </div>
           </div>
 
-          <CategoryFilter onCategoryChange={setSelectedCategory} />
+          <CategoryFilter onCategoryChange={() => {}} />
         </section>
 
         {/* Comics Grid */}
         <section>
-          {filteredAndSortedComics.length > 0 ? (
+          {series?.data && series?.data.length > 0 ? (
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
-              {filteredAndSortedComics.map((comic) => (
+              {series.data.map((comic) => (
                 <ComicCard key={comic.id} comic={comic} />
               ))}
             </div>
           ) : (
             <div className="text-center py-12">
-              <p className="text-muted-foreground">
-                Không tìm thấy truyện trong thể loại này.
-              </p>
+              <p className="text-muted-foreground">Không tìm thấy truyện trong thể loại này.</p>
             </div>
           )}
         </section>

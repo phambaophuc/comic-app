@@ -3,7 +3,7 @@ export interface Comic {
   slug: string;
   title: string;
   author: string;
-  coverImage: string;
+  cover_url: string;
   bannerImage: string;
   description: string;
   genres: string[];
