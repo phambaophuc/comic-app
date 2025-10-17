@@ -20,36 +20,25 @@ export function Header() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <Container>
         <div className="flex h-16 items-center justify-between gap-4">
           <Link href="/" className="flex items-center gap-2">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
               <BookMarked className="h-5 w-5 text-primary-foreground" />
             </div>
-            <span className="text-xl font-bold text-foreground">
-              Truyện Tranh
-            </span>
+            <span className="text-xl font-bold text-foreground">Truyện Tranh</span>
           </Link>
 
           <div className="hidden md:flex flex-1 max-w-md mx-8">
             <div className="relative w-full">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-              <Input
-                type="search"
-                placeholder="Tìm kiếm truyện..."
-                className="w-full pl-10"
-              />
+              <Input type="search" placeholder="Tìm kiếm truyện..." className="w-full pl-10" />
             </div>
           </div>
 
           <nav className="flex items-center gap-2">
-            <Button
-              variant="ghost"
-              size="icon"
-              asChild
-              className="hidden md:flex"
-            >
+            <Button variant="ghost" size="icon" asChild className="hidden md:flex">
               <Link href="/library">
                 <BookMarked className="h-5 w-5" />
                 <span className="sr-only">Thư viện</span>
@@ -62,11 +51,7 @@ export function Header() {
                 size="icon"
                 onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
               >
-                {theme === 'dark' ? (
-                  <Sun className="h-5 w-5" />
-                ) : (
-                  <Moon className="h-5 w-5" />
-                )}
+                {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
                 <span className="sr-only">Chuyển chế độ</span>
               </Button>
             )}
@@ -83,11 +68,7 @@ export function Header() {
         <div className="md:hidden pb-3">
           <div className="relative w-full">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <Input
-              type="search"
-              placeholder="Tìm kiếm truyện..."
-              className="w-full pl-10"
-            />
+            <Input type="search" placeholder="Tìm kiếm truyện..." className="w-full pl-10" />
           </div>
         </div>
       </Container>

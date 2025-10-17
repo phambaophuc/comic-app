@@ -25,6 +25,7 @@ export interface Chapter {
   total_chapters: number;
   downloaded_at: Date | null;
   created_at: Date;
+  series: Comic;
 }
 
 export interface ChapterImage {

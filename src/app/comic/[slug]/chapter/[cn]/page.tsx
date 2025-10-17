@@ -35,14 +35,9 @@ export default async function ReaderPage({ params }: ReaderPageProps) {
             href={`/comic/${slug}`}
             className="text-sm text-muted-foreground hover:text-foreground transition-colors"
           >
-            {chapter.chapter_title}
+            {chapter.series.title}
           </Link>
-          <h1 className="text-2xl font-bold mt-2 text-foreground">
-            Chapter {chapter.chapter_number}
-            {chapter.chapter_title &&
-              chapter.chapter_title !== `Chapter ${chapter.chapter_number}` &&
-              `: ${chapter.chapter_title}`}
-          </h1>
+          <h1 className="text-2xl font-bold mt-2 text-foreground">{chapter.chapter_title}</h1>
         </div>
 
         {/* Comic Pages */}
@@ -69,30 +64,30 @@ export default async function ReaderPage({ params }: ReaderPageProps) {
             <Button variant="outline" size="lg" asChild className="gap-2 bg-transparent">
               <Link href={`/comic/${slug}/chapter/${chapterNumber - 1}`}>
                 <ChevronLeft className="h-5 w-5" />
-                Previous Chapter
+                Previous
               </Link>
             </Button>
           ) : (
             <Button variant="outline" size="lg" disabled className="gap-2 bg-transparent">
               <ChevronLeft className="h-5 w-5" />
-              Previous Chapter
+              Previous
             </Button>
           )}
 
           <Button variant="outline" size="lg" asChild>
-            <Link href={`/comic/${slug}`}>Chapter List</Link>
+            <Link href={`/comic/${slug}`}>Danh sách chapter</Link>
           </Button>
 
           {chapterNumber < chapter.total_chapters ? (
             <Button size="lg" asChild className="gap-2">
               <Link href={`/comic/${slug}/chapter/${chapterNumber + 1}`}>
-                Next Chapter
+                Next
                 <ChevronRight className="h-5 w-5" />
               </Link>
             </Button>
           ) : (
             <Button size="lg" disabled className="gap-2">
-              Next Chapter
+              Next
               <ChevronRight className="h-5 w-5" />
             </Button>
           )}
