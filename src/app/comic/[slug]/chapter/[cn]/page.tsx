@@ -46,7 +46,7 @@ export default async function ReaderPage({ params }: ReaderPageProps) {
             chapter.images.map((img, index) => (
               <div key={index} className="relative w-full">
                 <Image
-                  src={'/manga_storage/' + img.local_path || '/placeholder.svg'}
+                  src={img.local_path || '/placeholder.svg'}
                   alt={`Page ${index + 1}`}
                   width={800}
                   height={1400}
@@ -60,7 +60,7 @@ export default async function ReaderPage({ params }: ReaderPageProps) {
 
         {/* Bottom Navigation */}
         <div className="mt-8 flex items-center justify-center gap-4 pb-8">
-          {chapterNumber > 0 ? (
+          {chapterNumber > 1 ? (
             <Button variant="outline" size="lg" asChild className="gap-2 bg-transparent">
               <Link href={`/comic/${slug}/chapter/${chapterNumber - 1}`}>
                 <ChevronLeft className="h-5 w-5" />

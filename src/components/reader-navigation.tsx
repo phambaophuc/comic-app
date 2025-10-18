@@ -22,7 +22,7 @@ export function ReaderNavigation({
 }: ReaderNavigationProps) {
   const router = useRouter();
 
-  const isPrev = chapterNumber > 0;
+  const isPrev = chapterNumber > 1;
   const isNext = chapterNumber < totalChapters;
 
   // Keyboard navigation

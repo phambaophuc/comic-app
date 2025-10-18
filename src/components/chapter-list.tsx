@@ -2,6 +2,7 @@ import { Clock } from 'lucide-react';
 
 import Link from 'next/link';
 
+import { formatDate } from '@/lib/dateUtils';
 import { Chapter } from '@/types';
 
 import { Button } from './ui/button';
@@ -28,7 +29,7 @@ export function ChapterList({ chapters, comicSlug }: ChapterListProps) {
                 </h3>
                 <div className="flex items-center gap-2 mt-1 text-sm text-muted-foreground">
                   <Clock className="h-3 w-3" />
-                  <span>{new Date(chapter.created_at).toLocaleDateString()}</span>
+                  <span>{formatDate(chapter.created_at)}</span>
                 </div>
               </div>
               <Button variant="ghost" size="sm">

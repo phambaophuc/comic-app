@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { ChapterList, Container } from '@/components';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { formatDate } from '@/lib/dateUtils';
 import { cms } from '@/services';
 
 interface ComicDetailPageProps {
@@ -114,7 +115,7 @@ export default async function ComicDetailPage({ params }: ComicDetailPageProps) 
 
               <div className="flex items-center gap-2 text-sm text-muted-foreground pt-2">
                 <Clock className="h-4 w-4" />
-                <span>Last updated: {new Date(comic.updated_at).toLocaleDateString()}</span>
+                <span>Last updated: {formatDate(comic.updated_at)}</span>
               </div>
             </div>
           </div>
