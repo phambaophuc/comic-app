@@ -17,7 +17,7 @@ export interface Comic {
 export interface Chapter {
   id: string;
   series_id: string;
-  chapter_number: string;
+  chapter_number: number;
   chapter_title: string | null;
   chapter_url: string;
   image_count: number;

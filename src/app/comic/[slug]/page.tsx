@@ -46,6 +46,7 @@ export default async function ComicDetailPage({ params }: ComicDetailPageProps) 
                   alt={comic.title}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  priority
                   className="object-cover"
                 />
               </div>
@@ -100,7 +101,7 @@ export default async function ComicDetailPage({ params }: ComicDetailPageProps) 
 
               <div className="flex flex-wrap gap-3 pt-2">
                 <Button size="lg" asChild className="rounded-full">
-                  <Link href={`/comic/${comic.slug}/chapter/1`}>Start Reading</Link>
+                  <Link href={`/comic/${comic.slug}/${1}`}>Start Reading</Link>
                 </Button>
                 <Button size="lg" variant="outline" className="rounded-full gap-2 bg-transparent">
                   <Heart className="h-5 w-5" />

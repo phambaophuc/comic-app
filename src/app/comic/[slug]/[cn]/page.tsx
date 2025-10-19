@@ -18,13 +18,11 @@ export default async function ReaderPage({ params }: ReaderPageProps) {
   const { slug, cn } = await params;
   const chapter = await cms.getByChapter(slug, cn);
 
-  const chapterNumber = parseInt(chapter.chapter_number);
-
   return (
     <div className="min-h-screen bg-background">
       <ReaderNavigation
         comicSlug={slug}
-        chapterNumber={chapterNumber}
+        chapterNumber={chapter.chapter_number}
         totalChapters={chapter.total_chapters}
       />
 
@@ -51,8 +49,9 @@ export default async function ReaderPage({ params }: ReaderPageProps) {
                   width={800}
                   height={1400}
                   className="w-full h-auto"
-                  priority={index < 3}
-                  loading={index < 3 ? 'eager' : 'lazy'}
+                  priority
+                  loading="eager"
+                  unoptimized
                 />
               </div>
             ))}
@@ -60,9 +59,9 @@ export default async function ReaderPage({ params }: ReaderPageProps) {
 
         {/* Bottom Navigation */}
         <div className="mt-8 flex items-center justify-center gap-4 pb-8">
-          {chapterNumber > 1 ? (
+          {chapter.chapter_number > 1 ? (
             <Button variant="outline" size="lg" asChild className="gap-2 bg-transparent">
-              <Link href={`/comic/${slug}/chapter/${chapterNumber - 1}`}>
+              <Link href={`/comic/${slug}/${chapter.chapter_number - 1}`}>
                 <ChevronLeft className="h-5 w-5" />
                 Previous
               </Link>
@@ -78,9 +77,9 @@ export default async function ReaderPage({ params }: ReaderPageProps) {
             <Link href={`/comic/${slug}`}>Danh sách chapter</Link>
           </Button>
 
-          {chapterNumber < chapter.total_chapters ? (
+          {chapter.chapter_number < chapter.total_chapters ? (
             <Button size="lg" asChild className="gap-2">
-              <Link href={`/comic/${slug}/chapter/${chapterNumber + 1}`}>
+              <Link href={`/comic/${slug}/${chapter.chapter_number + 1}`}>
                 Next
                 <ChevronRight className="h-5 w-5" />
               </Link>

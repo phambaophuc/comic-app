@@ -17,7 +17,7 @@ export function ChapterList({ chapters, comicSlug }: ChapterListProps) {
   return (
     <div className="space-y-2">
       {chapters.map((chapter) => (
-        <Link key={chapter.id} href={`/comic/${comicSlug}/chapter/${chapter.chapter_number}`}>
+        <Link key={chapter.id} href={`/comic/${comicSlug}/${chapter.chapter_number}`}>
           <Card className="p-4 hover:bg-accent/50 transition-colors cursor-pointer border-border">
             <div className="flex items-center justify-between gap-4">
               <div className="flex-1 min-w-0">
