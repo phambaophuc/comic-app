@@ -10,8 +10,9 @@ import { Footer, Header, ThemeProvider } from '@/components';
 import { QueryProvider } from '@/providers';
 
 export const metadata: Metadata = {
-  title: 'ComicVerse - Đọc truyện tranh online',
-  description: 'Nền tảng đọc truyện tranh hiện đại với hàng ngàn bộ truyện hấp dẫn',
+  title: 'Đọc truyện tranh online miễn phí - Manga, Manhwa, Manhua',
+  description:
+    'Khám phá hàng nghìn truyện tranh online miễn phí. Cập nhật nhanh nhất các bộ manga, manhwa, manhua hot nhất hiện nay.',
 };
 
 export default function RootLayout({

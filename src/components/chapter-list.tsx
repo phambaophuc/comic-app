@@ -24,7 +24,7 @@ export function ChapterList({ chapters, comicSlug }: ChapterListProps) {
                 <h3 className="font-medium text-card-foreground line-clamp-1">
                   Chương {chapter.chapter_number}
                   {chapter.chapter_title &&
-                    chapter.chapter_title !== `Chapter ${chapter.chapter_number}` &&
+                    chapter.chapter_title !== `Chương ${chapter.chapter_number}` &&
                     `: ${chapter.chapter_title}`}
                 </h3>
                 <div className="flex items-center gap-2 mt-1 text-sm text-muted-foreground">

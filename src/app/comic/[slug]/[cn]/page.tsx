@@ -1,5 +1,7 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
+import { Metadata } from 'next';
+
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -12,6 +14,21 @@ interface ReaderPageProps {
     slug: string;
     cn: string;
   }>;
+}
+
+export async function generateMetadata({ params }: ReaderPageProps): Promise<Metadata> {
+  const { slug, cn } = await params;
+  const chapter = await cms.getByChapter(slug, cn);
+
+  return {
+    title: `${chapter.series.title} - ${chapter.chapter_title}`,
+    description: `Đọc ${chapter.series.title} ${chapter.chapter_title} online.`,
+    openGraph: {
+      title: `${chapter.series.title} - ${chapter.chapter_title}`,
+      description: `Đọc ${chapter.chapter_title}`,
+      images: chapter.images?.[0]?.local_path ? [chapter.images[0].local_path] : [],
+    },
+  };
 }
 
 export default async function ReaderPage({ params }: ReaderPageProps) {
@@ -45,7 +62,7 @@ export default async function ReaderPage({ params }: ReaderPageProps) {
               <div key={index} className="relative w-full">
                 <Image
                   src={img.local_path || '/placeholder.svg'}
-                  alt={`Page ${index + 1}`}
+                  alt={`Trang ${index + 1}`}
                   width={800}
                   height={1400}
                   className="w-full h-auto"
@@ -58,17 +75,20 @@ export default async function ReaderPage({ params }: ReaderPageProps) {
         </div>
 
         {/* Bottom Navigation */}
-        <div className="mt-8 flex items-center justify-center gap-4 pb-8">
+        <nav
+          className="mt-8 flex items-center justify-center gap-4 pb-8"
+          aria-label="Chapter navigation"
+        >
           {chapter.chapter_number > 1 ? (
             <Button variant="outline" size="lg" asChild className="gap-2 bg-transparent">
               <Link href={`/comic/${slug}/${chapter.chapter_number - 1}`}>
-                <ChevronLeft className="h-5 w-5" />
+                <ChevronLeft className="h-5 w-5" aria-hidden="true" />
                 Previous
               </Link>
             </Button>
           ) : (
             <Button variant="outline" size="lg" disabled className="gap-2 bg-transparent">
-              <ChevronLeft className="h-5 w-5" />
+              <ChevronLeft className="h-5 w-5" aria-hidden="true" />
               Previous
             </Button>
           )}
@@ -81,16 +101,16 @@ export default async function ReaderPage({ params }: ReaderPageProps) {
             <Button size="lg" asChild className="gap-2">
               <Link href={`/comic/${slug}/${chapter.chapter_number + 1}`}>
                 Next
-                <ChevronRight className="h-5 w-5" />
+                <ChevronRight className="h-5 w-5" aria-hidden="true" />
               </Link>
             </Button>
           ) : (
             <Button size="lg" disabled className="gap-2">
               Next
-              <ChevronRight className="h-5 w-5" />
+              <ChevronRight className="h-5 w-5" aria-hidden="true" />
             </Button>
           )}
-        </div>
+        </nav>
       </div>
     </div>
   );

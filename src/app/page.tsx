@@ -46,14 +46,15 @@ export default function HomePage() {
         <section className="mb-8 space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <h2 className="text-2xl font-bold text-foreground">Danh sách truyện</h2>
-            <div className="flex gap-2">
+            <div className="flex gap-2" aria-label="Sort comics">
               <Button
                 variant={sortBy === 'trending' ? 'default' : 'outline'}
                 size="sm"
                 onClick={() => setSortBy('trending')}
                 className="gap-2"
+                aria-label="Sort by trending"
               >
-                <TrendingUp className="h-4 w-4" />
+                <TrendingUp className="h-4 w-4" aria-hidden="true" />
                 Thịnh hành
               </Button>
               <Button
@@ -61,8 +62,9 @@ export default function HomePage() {
                 size="sm"
                 onClick={() => setSortBy('latest')}
                 className="gap-2"
+                aria-label="Sort by latest"
               >
-                <Clock className="h-4 w-4" />
+                <Clock className="h-4 w-4" aria-hidden="true" />
                 Mới nhất
               </Button>
               <Button
@@ -70,8 +72,9 @@ export default function HomePage() {
                 size="sm"
                 onClick={() => setSortBy('rating')}
                 className="gap-2"
+                aria-label="Sort by rating"
               >
-                <Star className="h-4 w-4" />
+                <Star className="h-4 w-4" aria-hidden="true" />
                 Đánh giá cao
               </Button>
             </div>
@@ -81,7 +84,7 @@ export default function HomePage() {
         </section>
 
         {/* Comics Grid */}
-        <section>
+        <section aria-label="Comics list">
           {series?.data && series?.data.length > 0 ? (
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
               {series.data.map((comic) => (
@@ -96,17 +99,25 @@ export default function HomePage() {
         </section>
 
         {/* Pagination Placeholder */}
-        <section className="mt-12 flex justify-center">
+        <nav className="mt-12 flex justify-center" aria-label="Pagination">
           <div className="flex gap-2">
-            <Button variant="outline" disabled>
+            <Button variant="outline" disabled aria-label="Previous page">
               Trước
             </Button>
-            <Button variant="default">1</Button>
-            <Button variant="outline">2</Button>
-            <Button variant="outline">3</Button>
-            <Button variant="outline">Sau</Button>
+            <Button variant="default" aria-label="Page 1" aria-current="page">
+              1
+            </Button>
+            <Button variant="outline" aria-label="Page 2">
+              2
+            </Button>
+            <Button variant="outline" aria-label="Page 3">
+              3
+            </Button>
+            <Button variant="outline" aria-label="Next page">
+              Sau
+            </Button>
           </div>
-        </section>
+        </nav>
       </Container>
     </div>
   );

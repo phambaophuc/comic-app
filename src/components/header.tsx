@@ -27,7 +27,7 @@ export function Header() {
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
               <BookMarked className="h-5 w-5 text-primary-foreground" />
             </div>
-            <span className="text-xl font-bold text-foreground">Truyện Tranh</span>
+            <span className="text-xl font-bold text-foreground">Nguồn Truyện</span>
           </Link>
 
           <div className="hidden md:flex flex-1 max-w-md mx-8">

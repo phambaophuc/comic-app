@@ -15,9 +15,7 @@ export function Footer() {
                 <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
                   <BookMarked className="h-5 w-5 text-primary-foreground" />
                 </div>
-                <span className="text-xl font-bold text-foreground">
-                  Truyện Tranh
-                </span>
+                <span className="text-xl font-bold text-foreground">Nguồn Truyện</span>
               </Link>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Cổng thông tin đọc truyện tranh tuyệt vời của bạn.
