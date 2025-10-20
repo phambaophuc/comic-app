@@ -3,10 +3,10 @@ import { Eye, Heart } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { MangaSeries } from '@/types';
+import { Comic } from '@/types';
 
 interface ComicCardProps {
-  comic: MangaSeries;
+  comic: Comic;
 }
 
 export function ComicCard({ comic }: ComicCardProps) {

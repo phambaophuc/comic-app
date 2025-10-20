@@ -1,22 +1,17 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
 import { Clock, Star, TrendingUp } from 'lucide-react';
 
-import { CategoryFilter, ComicCard, Container, FeaturedComics } from '@/components';
+import { CategoryFilter, ComicCard, Container } from '@/components';
 import { Button } from '@/components/ui/button';
 import { useComics } from '@/hooks';
-import { comics } from '@/lib/data/comics';
 
 export default function HomePage() {
   const [sortBy, setSortBy] = useState<'trending' | 'latest' | 'rating'>('trending');
 
   const { data: series } = useComics({ page: 1, limit: 10 });
-
-  const featuredComics = useMemo(() => {
-    return [...comics].sort((a, b) => b.rating - a.rating).slice(0, 8);
-  }, []);
 
   return (
     <div className="py-8">
@@ -40,7 +35,7 @@ export default function HomePage() {
         </section>
 
         {/* Featured Comics Section */}
-        <FeaturedComics title="Truyện nổi bật" comics={featuredComics} />
+        {/* <FeaturedComics title="Truyện nổi bật" comics={} /> */}
 
         {/* Filters Section */}
         <section className="mb-8 space-y-6">

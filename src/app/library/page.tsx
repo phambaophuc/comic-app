@@ -1,26 +1,36 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+
 import { BookMarked, Clock, Heart } from 'lucide-react';
 
 import { ComicCard, Container } from '@/components';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { comics } from '@/lib/data/comics';
+import { Comic } from '@/types';
 
 export default function LibraryPage() {
-  // Mock data - in a real app, this would come from user's library
-  const favoriteComics = comics.slice(0, 3);
-  const recentlyReadComics = comics.slice(2, 5);
+  const [favoriteComics, setFavoriteComics] = useState<Comic[]>([]);
+  const [recentlyReadComics, setRecentlyReadComics] = useState<Comic[]>([]);
+
+  useEffect(() => {
+    const favorites = localStorage.getItem('favoriteComics');
+    const recent = localStorage.getItem('recentlyReadComics');
+
+    if (favorites) {
+      setFavoriteComics(JSON.parse(favorites) as Comic[]);
+    }
+
+    if (recent) {
+      setRecentlyReadComics(JSON.parse(recent) as Comic[]);
+    }
+  }, []);
 
   return (
     <div className="py-8">
       <Container>
         <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold mb-2 text-foreground">
-            Thư viện của tôi
-          </h1>
-          <p className="text-muted-foreground">
-            Truyện yêu thích và lịch sử đọc của bạn
-          </p>
+          <h1 className="text-3xl md:text-4xl font-bold mb-2 text-foreground">Thư viện của tôi</h1>
+          <p className="text-muted-foreground">Truyện yêu thích và lịch sử đọc của bạn</p>
         </div>
 
         <Tabs defaultValue="favorites" className="w-full">
@@ -40,8 +50,7 @@ export default function LibraryPage() {
               <>
                 <div className="flex items-center justify-between">
                   <h2 className="text-xl font-semibold text-foreground">
-                    {favoriteComics.length}{' '}
-                    {favoriteComics.length === 1 ? 'Truyện' : 'Truyện'}
+                    {favoriteComics.length} {favoriteComics.length === 1 ? 'Truyện' : 'Truyện'}
                   </h2>
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
@@ -85,12 +94,8 @@ export default function LibraryPage() {
                 <div className="rounded-full bg-muted p-6 mb-4">
                   <Clock className="h-12 w-12 text-muted-foreground" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2 text-foreground">
-                  Chưa có lịch sử đọc
-                </h3>
-                <p className="text-muted-foreground max-w-sm">
-                  Truyện bạn đọc sẽ xuất hiện ở đây
-                </p>
+                <h3 className="text-xl font-semibold mb-2 text-foreground">Chưa có lịch sử đọc</h3>
+                <p className="text-muted-foreground max-w-sm">Truyện bạn đọc sẽ xuất hiện ở đây</p>
               </div>
             )}
           </TabsContent>

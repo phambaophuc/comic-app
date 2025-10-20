@@ -47,19 +47,19 @@ export function ReaderNavigation({
             <Button variant="ghost" size="icon" asChild>
               <Link href="/">
                 <Home className="h-5 w-5" />
-                <span className="sr-only">Home</span>
+                <span className="sr-only">Trang chủ</span>
               </Link>
             </Button>
             <Button variant="ghost" size="icon" asChild>
               <Link href={`/comic/${comicSlug}`}>
                 <List className="h-5 w-5" />
-                <span className="sr-only">Chapter List</span>
+                <span className="sr-only">Danh sách chương</span>
               </Link>
             </Button>
           </div>
 
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <span className="hidden sm:inline">Chapter</span>
+            <span className="hidden sm:inline">Chương</span>
             <span className="font-semibold text-foreground">
               {chapterNumber} / {totalChapters}
             </span>

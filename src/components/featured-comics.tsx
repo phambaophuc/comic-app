@@ -4,7 +4,7 @@ import { useRef } from 'react';
 
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-import type { Comic } from '@/lib/types';
+import { Comic } from '@/types';
 
 import { ComicCard } from './comic-card';
 import { Button } from './ui/button';
@@ -14,10 +14,7 @@ interface FeaturedComicsProps {
   comics: Comic[];
 }
 
-export function FeaturedComics({
-  title = 'Featured Comics',
-  comics
-}: FeaturedComicsProps) {
+export function FeaturedComics({ title = 'Featured Comics', comics }: FeaturedComicsProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const scroll = (direction: 'left' | 'right') => {
@@ -29,7 +26,7 @@ export function FeaturedComics({
 
       scrollContainerRef.current.scrollTo({
         left: newScrollPosition,
-        behavior: 'smooth'
+        behavior: 'smooth',
       });
     }
   };
@@ -42,21 +39,11 @@ export function FeaturedComics({
 
         {/* Desktop scroll buttons */}
         <div className="hidden gap-2 md:flex">
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={() => scroll('left')}
-            className="h-9 w-9"
-          >
+          <Button variant="outline" size="icon" onClick={() => scroll('left')} className="h-9 w-9">
             <ChevronLeft className="h-4 w-4" />
             <span className="sr-only">Scroll left</span>
           </Button>
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={() => scroll('right')}
-            className="h-9 w-9"
-          >
+          <Button variant="outline" size="icon" onClick={() => scroll('right')} className="h-9 w-9">
             <ChevronRight className="h-4 w-4" />
             <span className="sr-only">Scroll right</span>
           </Button>
