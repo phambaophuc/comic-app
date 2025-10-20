@@ -2,6 +2,7 @@ export * from './category-filter';
 export * from './chapter-list';
 export * from './comic-card';
 export * from './container';
+export * from './favourite-button';
 export * from './featured-comics';
 export * from './footer';
 export * from './header';

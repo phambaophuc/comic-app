@@ -37,6 +37,11 @@ export interface ChapterImage {
   created_at: Date;
 }
 
+export interface RecentComic extends Comic {
+  lastChapter: number;
+  lastReadAt: string;
+}
+
 // Query Params
 export interface PaginationParams {
   page?: number;

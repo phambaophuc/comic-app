@@ -3,13 +3,20 @@ import { Eye, Heart } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { formatRelativeTime } from '@/lib/dateUtils';
 import { Comic } from '@/types';
 
 interface ComicCardProps {
-  comic: Comic;
+  comic: Comic & {
+    lastChapter?: number;
+    lastReadAt?: string;
+  };
 }
 
 export function ComicCard({ comic }: ComicCardProps) {
+  const formattedViews = comic.views >= 1000 ? `${(comic.views / 1000).toFixed(1)}K` : comic.views;
+  const formattedHearts = `${(10000 / 1000).toFixed(1)}K`;
+
   return (
     <Link href={`/comic/${comic.slug}`} className="group block">
       <div className="relative aspect-[2/3] overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300">
@@ -34,13 +41,20 @@ export function ComicCard({ comic }: ComicCardProps) {
             <div className="flex items-center gap-4 text-white/90 text-sm">
               <div className="flex items-center gap-1.5">
                 <Eye className="h-4 w-4" />
-                <span>{(comic.views / 1000).toFixed(1)}K</span>
+                <span>{formattedViews}</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <Heart className="h-4 w-4" />
-                <span>{(10000 / 1000).toFixed(1)}K</span>
+                <span>{formattedHearts}</span>
               </div>
             </div>
+
+            {comic.lastChapter && (
+              <p className="text-sm text-white/80 flex items-center justify-between">
+                <span>Chapter {comic.lastChapter}</span>
+                <span>{formatRelativeTime(comic.lastReadAt ?? '')}</span>
+              </p>
+            )}
           </div>
         </div>
       </div>

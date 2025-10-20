@@ -9,6 +9,8 @@ import { ReaderNavigation } from '@/components';
 import { Button } from '@/components/ui/button';
 import { cms } from '@/services';
 
+import RecentTracker from './RecentTracker';
+
 interface ReaderPageProps {
   params: Promise<{
     slug: string;
@@ -37,6 +39,8 @@ export default async function ReaderPage({ params }: ReaderPageProps) {
 
   return (
     <div className="min-h-screen bg-background">
+      <RecentTracker chapter={chapter} />
+
       <ReaderNavigation
         comicSlug={slug}
         chapterNumber={chapter.chapter_number}

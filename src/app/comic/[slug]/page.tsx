@@ -5,7 +5,7 @@ import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { ChapterList, Container } from '@/components';
+import { ChapterList, Container, FavoriteButton } from '@/components';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { formatDate } from '@/lib/dateUtils';
@@ -129,15 +129,7 @@ export default async function ComicDetailPage({ params }: ComicDetailPageProps) 
                     Đọc ngay
                   </Link>
                 </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="rounded-full gap-2 bg-transparent"
-                  aria-label={`Add ${comic.title} to favorites`}
-                >
-                  <Heart className="h-5 w-5" aria-hidden="true" />
-                  Thêm vào yêu thích
-                </Button>
+                <FavoriteButton comic={comic} />
               </div>
 
               <div className="pt-4">
