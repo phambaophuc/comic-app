@@ -70,26 +70,26 @@ export function ReaderNavigation({
               <Button variant="ghost" size="sm" asChild className="gap-1">
                 <Link href={`/comic/${comicSlug}/${chapterNumber - 1}`}>
                   <ChevronLeft className="h-4 w-4" />
-                  <span className="hidden sm:inline">Prev</span>
+                  <span className="hidden sm:inline">Trước</span>
                 </Link>
               </Button>
             ) : (
               <Button variant="ghost" size="sm" disabled className="gap-1">
                 <ChevronLeft className="h-4 w-4" />
-                <span className="hidden sm:inline">Prev</span>
+                <span className="hidden sm:inline">Trước</span>
               </Button>
             )}
 
             {isNext ? (
               <Button variant="default" size="sm" asChild className="gap-1">
                 <Link href={`/comic/${comicSlug}/${chapterNumber + 1}`}>
-                  <span className="hidden sm:inline">Next</span>
+                  <span className="hidden sm:inline">Sau</span>
                   <ChevronRight className="h-4 w-4" />
                 </Link>
               </Button>
             ) : (
               <Button variant="default" size="sm" disabled className="gap-1">
-                <span className="hidden sm:inline">Next</span>
+                <span className="hidden sm:inline">Sau</span>
                 <ChevronRight className="h-4 w-4" />
               </Button>
             )}

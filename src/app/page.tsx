@@ -4,14 +4,26 @@ import { useState } from 'react';
 
 import { Clock, Star, TrendingUp } from 'lucide-react';
 
+import { useRouter, useSearchParams } from 'next/navigation';
+
 import { CategoryFilter, ComicCard, Container } from '@/components';
 import { Button } from '@/components/ui/button';
 import { useComics } from '@/hooks';
 
 export default function HomePage() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
   const [sortBy, setSortBy] = useState<'trending' | 'latest' | 'rating'>('trending');
 
-  const { data: series } = useComics({ page: 1, limit: 10 });
+  const currentPage = parseInt(searchParams.get('page') || '1');
+  const { data: series } = useComics({ page: currentPage, limit: 20 });
+
+  const handlePageChange = (page: number) => {
+    const newSearchParams = new URLSearchParams(searchParams.toString());
+    newSearchParams.set('page', page.toString());
+    router.push(`?${newSearchParams.toString()}`, { scroll: false });
+  };
 
   return (
     <div className="py-8">
@@ -81,38 +93,55 @@ export default function HomePage() {
         {/* Comics Grid */}
         <section aria-label="Comics list">
           {series?.data && series?.data.length > 0 ? (
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
-              {series.data.map((comic) => (
-                <ComicCard key={comic.id} comic={comic} />
-              ))}
-            </div>
+            <>
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
+                {series.data.map((comic) => (
+                  <ComicCard key={comic.id} comic={comic} />
+                ))}
+              </div>
+
+              {/* Pagination - chỉ hiển thị khi có nhiều trang */}
+              {series.meta && series.meta.totalPages > 1 && (
+                <nav className="mt-12 flex justify-center" aria-label="Pagination">
+                  <div className="flex gap-2">
+                    {/* Previous button */}
+                    <Button
+                      variant="outline"
+                      onClick={() => handlePageChange(currentPage - 1)}
+                      disabled={currentPage <= 1}
+                    >
+                      Trước
+                    </Button>
+
+                    {/* Page numbers */}
+                    {Array.from({ length: series.meta.totalPages }, (_, i) => i + 1).map((page) => (
+                      <Button
+                        key={page}
+                        variant={page === currentPage ? 'default' : 'outline'}
+                        onClick={() => handlePageChange(page)}
+                      >
+                        {page}
+                      </Button>
+                    ))}
+
+                    {/* Next button */}
+                    <Button
+                      variant="outline"
+                      onClick={() => handlePageChange(currentPage + 1)}
+                      disabled={currentPage >= series.meta.totalPages}
+                    >
+                      Sau
+                    </Button>
+                  </div>
+                </nav>
+              )}
+            </>
           ) : (
             <div className="text-center py-12">
               <p className="text-muted-foreground">Không tìm thấy truyện trong thể loại này.</p>
             </div>
           )}
         </section>
-
-        {/* Pagination Placeholder */}
-        <nav className="mt-12 flex justify-center" aria-label="Pagination">
-          <div className="flex gap-2">
-            <Button variant="outline" disabled aria-label="Previous page">
-              Trước
-            </Button>
-            <Button variant="default" aria-label="Page 1" aria-current="page">
-              1
-            </Button>
-            <Button variant="outline" aria-label="Page 2">
-              2
-            </Button>
-            <Button variant="outline" aria-label="Page 3">
-              3
-            </Button>
-            <Button variant="outline" aria-label="Next page">
-              Sau
-            </Button>
-          </div>
-        </nav>
       </Container>
     </div>
   );

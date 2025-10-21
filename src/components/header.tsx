@@ -38,7 +38,7 @@ export function Header() {
           </div>
 
           <nav className="flex items-center gap-2">
-            <Button variant="ghost" size="icon" asChild className="hidden md:flex">
+            <Button variant="ghost" size="icon" asChild>
               <Link href="/library">
                 <BookMarked className="h-5 w-5" />
                 <span className="sr-only">Thư viện</span>

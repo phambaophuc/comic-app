@@ -37,6 +37,9 @@ export default async function ReaderPage({ params }: ReaderPageProps) {
   const { slug, cn } = await params;
   const chapter = await cms.getByChapter(slug, cn);
 
+  const isFirstChapter = chapter.chapter_number <= 1;
+  const isLastChapter = chapter.chapter_number >= chapter.total_chapters;
+
   return (
     <div className="min-h-screen bg-background">
       <RecentTracker chapter={chapter} />
@@ -48,7 +51,7 @@ export default async function ReaderPage({ params }: ReaderPageProps) {
       />
 
       {/* Reader Content */}
-      <div className="max-w-4xl mx-auto px-4 py-8">
+      <div className="max-w-4xl mx-auto py-8">
         <div className="mb-6 text-center">
           <Link
             href={`/comic/${slug}`}
@@ -83,37 +86,39 @@ export default async function ReaderPage({ params }: ReaderPageProps) {
           className="mt-8 flex items-center justify-center gap-4 pb-8"
           aria-label="Chapter navigation"
         >
-          {chapter.chapter_number > 1 ? (
-            <Button variant="outline" size="lg" asChild className="gap-2 bg-transparent">
+          <Button
+            variant="outline"
+            size="lg"
+            asChild={!isFirstChapter}
+            className="gap-2 bg-transparent"
+            disabled={isFirstChapter}
+          >
+            {!isFirstChapter ? (
               <Link href={`/comic/${slug}/${chapter.chapter_number - 1}`}>
                 <ChevronLeft className="h-5 w-5" aria-hidden="true" />
-                Previous
+                Trước
               </Link>
-            </Button>
-          ) : (
-            <Button variant="outline" size="lg" disabled className="gap-2 bg-transparent">
-              <ChevronLeft className="h-5 w-5" aria-hidden="true" />
-              Previous
-            </Button>
-          )}
-
-          <Button variant="outline" size="lg" asChild>
-            <Link href={`/comic/${slug}`}>Danh sách chapter</Link>
+            ) : (
+              <>
+                <ChevronLeft className="h-5 w-5" aria-hidden="true" />
+                Trước
+              </>
+            )}
           </Button>
 
-          {chapter.chapter_number < chapter.total_chapters ? (
-            <Button size="lg" asChild className="gap-2">
+          <Button size="lg" asChild={!isLastChapter} className="gap-2" disabled={isLastChapter}>
+            {!isLastChapter ? (
               <Link href={`/comic/${slug}/${chapter.chapter_number + 1}`}>
-                Next
+                Sau
                 <ChevronRight className="h-5 w-5" aria-hidden="true" />
               </Link>
-            </Button>
-          ) : (
-            <Button size="lg" disabled className="gap-2">
-              Next
-              <ChevronRight className="h-5 w-5" aria-hidden="true" />
-            </Button>
-          )}
+            ) : (
+              <>
+                Sau
+                <ChevronRight className="h-5 w-5" aria-hidden="true" />
+              </>
+            )}
+          </Button>
         </nav>
       </div>
     </div>
