@@ -2,7 +2,7 @@ import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 
 import { ApiError } from '@/lib/api-client';
 import { cms } from '@/services';
-import { Comic, PaginatedAPIResponse, PaginationParams } from '@/types';
+import { ComicWithChapters, PaginatedAPIResponse, PaginationParams } from '@/types';
 
 // ============================================
 // COMIC HOOKS
@@ -16,7 +16,10 @@ export const COMIC_KEYS = {
 
 export function useComics(
   params?: PaginationParams,
-  options?: Omit<UseQueryOptions<PaginatedAPIResponse<Comic>, ApiError>, 'queryKey' | 'queryFn'>,
+  options?: Omit<
+    UseQueryOptions<PaginatedAPIResponse<ComicWithChapters>, ApiError>,
+    'queryKey' | 'queryFn'
+  >,
 ) {
   return useQuery({
     queryKey: COMIC_KEYS.list(params),

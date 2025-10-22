@@ -18,7 +18,7 @@ export function ComicCard({ comic }: ComicCardProps) {
   const formattedHearts = `${(10000 / 1000).toFixed(1)}K`;
 
   return (
-    <Link href={`/comic/${comic.slug}`} className="group block">
+    <Link href={`/truyen-tranh/${comic.slug}`} className="group block">
       <div className="relative aspect-[2/3] overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300">
         {/* Cover Image */}
         <Image
@@ -51,7 +51,7 @@ export function ComicCard({ comic }: ComicCardProps) {
 
             {comic.lastChapter && (
               <p className="text-sm text-white/80 flex items-center justify-between">
-                <span>Chapter {comic.lastChapter}</span>
+                <span>Chương {comic.lastChapter}</span>
                 <span>{formatRelativeTime(comic.lastReadAt ?? '')}</span>
               </p>
             )}

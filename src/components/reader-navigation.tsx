@@ -29,9 +29,9 @@ export function ReaderNavigation({
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
       if (e.key === 'ArrowLeft' && isPrev) {
-        router.push(`/comic/${comicSlug}/${chapterNumber - 1}`);
+        router.push(`/truyen-tranh/${comicSlug}/${chapterNumber - 1}`);
       } else if (e.key === 'ArrowRight' && isNext) {
-        router.push(`/comic/${comicSlug}/${chapterNumber + 1}`);
+        router.push(`/truyen-tranh/${comicSlug}/${chapterNumber + 1}`);
       }
     };
 
@@ -51,7 +51,7 @@ export function ReaderNavigation({
               </Link>
             </Button>
             <Button variant="ghost" size="icon" asChild>
-              <Link href={`/comic/${comicSlug}`}>
+              <Link href={`/truyen-tranh/${comicSlug}`}>
                 <List className="h-5 w-5" />
                 <span className="sr-only">Danh sách chương</span>
               </Link>
@@ -68,7 +68,7 @@ export function ReaderNavigation({
           <div className="flex items-center gap-2">
             {isPrev ? (
               <Button variant="ghost" size="sm" asChild className="gap-1">
-                <Link href={`/comic/${comicSlug}/${chapterNumber - 1}`}>
+                <Link href={`/truyen-tranh/${comicSlug}/${chapterNumber - 1}`}>
                   <ChevronLeft className="h-4 w-4" />
                   <span className="hidden sm:inline">Trước</span>
                 </Link>
@@ -82,7 +82,7 @@ export function ReaderNavigation({
 
             {isNext ? (
               <Button variant="default" size="sm" asChild className="gap-1">
-                <Link href={`/comic/${comicSlug}/${chapterNumber + 1}`}>
+                <Link href={`/truyen-tranh/${comicSlug}/${chapterNumber + 1}`}>
                   <span className="hidden sm:inline">Sau</span>
                   <ChevronRight className="h-4 w-4" />
                 </Link>

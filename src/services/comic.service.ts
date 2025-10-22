@@ -1,5 +1,11 @@
 import apiClient from '@/lib/api-client';
-import { Chapter, Comic, PaginatedAPIResponse, PaginationParams } from '@/types';
+import {
+  APIResponse,
+  Comic,
+  ComicWithChapters,
+  PaginatedAPIResponse,
+  PaginationParams,
+} from '@/types';
 
 export class ComicService {
   private readonly basePath = '/comics';
@@ -7,23 +13,32 @@ export class ComicService {
   /**
    * Lấy danh sách comic với filter và phân trang
    */
-  async getAll(params?: PaginationParams): Promise<PaginatedAPIResponse<Comic>> {
+  async getAll(params?: PaginationParams): Promise<PaginatedAPIResponse<ComicWithChapters>> {
     const queryString = params ? apiClient.buildQueryString(params) : '';
-    return apiClient.get<PaginatedAPIResponse<Comic>>(`${this.basePath}${queryString}`);
+    const response = await apiClient.get<APIResponse<PaginatedAPIResponse<ComicWithChapters>>>(
+      `${this.basePath}${queryString}`,
+    );
+    return response.data;
   }
 
   /**
    * Lấy comic theo slug
    */
-  async getBySlug(slug: string): Promise<Comic> {
-    return apiClient.get<Comic>(`${this.basePath}/${slug}`);
+  async getBySlug(slug: string): Promise<ComicWithChapters> {
+    const response = await apiClient.get<APIResponse<ComicWithChapters>>(
+      `${this.basePath}/${slug}`,
+    );
+    return response.data;
   }
 
   /**
-   * Lấy thông tin chapter
+   * Lấy danh sách hot comics (theo views)
    */
-  async getByChapter(slug: string, cn: string): Promise<Chapter> {
-    return apiClient.get<Chapter>(`${this.basePath}/${slug}/chapters/${cn}`);
+  async getHotComics(limit: number = 5): Promise<Comic[]> {
+    const response = await apiClient.get<APIResponse<Comic[]>>(
+      `${this.basePath}/hot?limit=${limit}`,
+    );
+    return response.data;
   }
 }
 

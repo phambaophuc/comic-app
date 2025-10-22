@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { memo, useRef } from 'react';
 
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -14,7 +14,10 @@ interface FeaturedComicsProps {
   comics: Comic[];
 }
 
-export function FeaturedComics({ title = 'Featured Comics', comics }: FeaturedComicsProps) {
+export const FeaturedComics = memo(function FeaturedComics({
+  title = 'Truyện nhiều lượt xem',
+  comics,
+}: FeaturedComicsProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const scroll = (direction: 'left' | 'right') => {
@@ -77,4 +80,4 @@ export function FeaturedComics({ title = 'Featured Comics', comics }: FeaturedCo
       `}</style>
     </section>
   );
-}
+});

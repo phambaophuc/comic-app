@@ -39,7 +39,7 @@ export function Header() {
 
           <nav className="flex items-center gap-2">
             <Button variant="ghost" size="icon" asChild>
-              <Link href="/library">
+              <Link href="/thu-vien">
                 <BookMarked className="h-5 w-5" />
                 <span className="sr-only">Thư viện</span>
               </Link>
@@ -57,7 +57,7 @@ export function Header() {
             )}
 
             <Button variant="ghost" size="icon" asChild>
-              <Link href="/login">
+              <Link href="/dang-nhap">
                 <User className="h-5 w-5" />
                 <span className="sr-only">Tài khoản</span>
               </Link>

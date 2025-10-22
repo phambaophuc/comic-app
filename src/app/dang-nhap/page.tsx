@@ -15,25 +15,19 @@ import {
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle
+  CardTitle,
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-export default function RegisterPage() {
-  const [name, setName] = useState('');
+export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Mock registration - in a real app, this would create a new user
-    if (password !== confirmPassword) {
-      alert("Passwords don't match!");
-      return;
-    }
-    console.log('Registration attempt:', { name, email, password });
+    // Mock login - in a real app, this would authenticate the user
+    console.log('Login attempt:', { email, password });
   };
 
   return (
@@ -48,27 +42,14 @@ export default function RegisterPage() {
                 </div>
               </div>
               <CardTitle className="text-2xl font-bold text-foreground">
-                Tạo tài khoản
+                Chào mừng trở lại
               </CardTitle>
               <CardDescription className="text-muted-foreground">
-                Tham gia Truyện Tranh để bắt đầu hành trình đọc của bạn
+                Đăng nhập vào tài khoản của bạn để tiếp tục đọc truyện
               </CardDescription>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="name" className="text-foreground">
-                    Tên
-                  </Label>
-                  <Input
-                    id="name"
-                    type="text"
-                    placeholder="Nguyễn Văn A"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                  />
-                </div>
                 <div className="space-y-2">
                   <Label htmlFor="email" className="text-foreground">
                     Email
@@ -83,9 +64,14 @@ export default function RegisterPage() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="password" className="text-foreground">
-                    Mật khẩu
-                  </Label>
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="password" className="text-foreground">
+                      Mật khẩu
+                    </Label>
+                    <Link href="#" className="text-sm text-primary hover:underline">
+                      Quên mật khẩu?
+                    </Link>
+                  </div>
                   <Input
                     id="password"
                     type="password"
@@ -95,32 +81,16 @@ export default function RegisterPage() {
                     required
                   />
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="confirmPassword" className="text-foreground">
-                    Xác nhận mật khẩu
-                  </Label>
-                  <Input
-                    id="confirmPassword"
-                    type="password"
-                    placeholder="••••••••"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    required
-                  />
-                </div>
                 <Button type="submit" className="w-full">
-                  Tạo tài khoản
+                  Đăng nhập
                 </Button>
               </form>
             </CardContent>
             <CardFooter className="flex flex-col space-y-4">
               <div className="text-sm text-center text-muted-foreground">
-                Đã có tài khoản?{' '}
-                <Link
-                  href="/login"
-                  className="text-primary hover:underline font-medium"
-                >
-                  Đăng nhập
+                Chưa có tài khoản?{' '}
+                <Link href="/dang-ky" className="text-primary hover:underline font-medium">
+                  Đăng ký
                 </Link>
               </div>
             </CardFooter>

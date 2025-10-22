@@ -2,10 +2,11 @@
 
 import { useEffect } from 'react';
 
-import { Chapter, RecentComic } from '@/types';
+import { RecentComic } from '@/types';
+import { ChapterWithImagesAndComic } from '@/types/chapter.types';
 
 interface Props {
-  chapter: Chapter;
+  chapter: ChapterWithImagesAndComic;
 }
 
 export default function RecentTracker({ chapter }: Props) {

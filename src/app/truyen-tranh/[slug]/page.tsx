@@ -123,7 +123,7 @@ export default async function ComicDetailPage({ params }: ComicDetailPageProps) 
               <div className="flex flex-wrap gap-3 pt-2">
                 <Button size="lg" asChild className="rounded-full">
                   <Link
-                    href={`/comic/${comic.slug}/${1}`}
+                    href={`/truyen-tranh/${comic.slug}/${1}`}
                     aria-label={`Start reading ${comic.title} from chapter 1`}
                   >
                     Đọc ngay

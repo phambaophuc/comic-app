@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-import { BookMarked, Clock, Heart } from 'lucide-react';
+import { BookMarked, Clock, Heart, Trash2 } from 'lucide-react';
 
 import { ComicCard, Container } from '@/components';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -24,6 +24,12 @@ export default function LibraryPage() {
       setRecentlyReadComics(JSON.parse(recent) as Comic[]);
     }
   }, []);
+
+  const handleRemoveRecent = (id: string) => {
+    const updated = recentlyReadComics.filter((comic) => comic.id !== id);
+    setRecentlyReadComics(updated);
+    localStorage.setItem('recentlyReadComics', JSON.stringify(updated));
+  };
 
   return (
     <div className="py-8">
@@ -79,13 +85,21 @@ export default function LibraryPage() {
               <>
                 <div className="flex items-center justify-between">
                   <h2 className="text-xl font-semibold text-foreground">
-                    {recentlyReadComics.length}{' '}
-                    {recentlyReadComics.length === 1 ? 'Truyện' : 'Truyện'}
+                    {recentlyReadComics.length} Truyện
                   </h2>
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
                   {recentlyReadComics.map((comic) => (
-                    <ComicCard key={comic.id} comic={comic} />
+                    <div key={comic.id} className="relative group">
+                      <ComicCard comic={comic} />
+                      <button
+                        onClick={() => handleRemoveRecent(comic.id)}
+                        className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity bg-destructive text-destructive-foreground rounded-full p-1"
+                        title="Xóa truyện này"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </button>
+                    </div>
                   ))}
                 </div>
               </>

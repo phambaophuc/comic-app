@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 import { ReaderNavigation } from '@/components';
 import { Button } from '@/components/ui/button';
-import { cms } from '@/services';
+import { cts } from '@/services';
 
 import RecentTracker from './RecentTracker';
 
@@ -20,7 +20,7 @@ interface ReaderPageProps {
 
 export async function generateMetadata({ params }: ReaderPageProps): Promise<Metadata> {
   const { slug, cn } = await params;
-  const chapter = await cms.getByChapter(slug, cn);
+  const chapter = await cts.getByChapterNumber(slug, cn);
 
   return {
     title: `${chapter.series.title} - ${chapter.chapter_title}`,
@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: ReaderPageProps): Promise<Met
 
 export default async function ReaderPage({ params }: ReaderPageProps) {
   const { slug, cn } = await params;
-  const chapter = await cms.getByChapter(slug, cn);
+  const chapter = await cts.getByChapterNumber(slug, cn);
 
   const isFirstChapter = chapter.chapter_number <= 1;
   const isLastChapter = chapter.chapter_number >= chapter.total_chapters;
@@ -54,7 +54,7 @@ export default async function ReaderPage({ params }: ReaderPageProps) {
       <div className="max-w-4xl mx-auto py-8">
         <div className="mb-6 text-center">
           <Link
-            href={`/comic/${slug}`}
+            href={`/truyen-tranh/${slug}`}
             className="text-sm text-muted-foreground hover:text-foreground transition-colors"
           >
             {chapter.series.title}
@@ -94,7 +94,7 @@ export default async function ReaderPage({ params }: ReaderPageProps) {
             disabled={isFirstChapter}
           >
             {!isFirstChapter ? (
-              <Link href={`/comic/${slug}/${chapter.chapter_number - 1}`}>
+              <Link href={`/truyen-tranh/${slug}/${chapter.chapter_number - 1}`}>
                 <ChevronLeft className="h-5 w-5" aria-hidden="true" />
                 Trước
               </Link>
@@ -108,7 +108,7 @@ export default async function ReaderPage({ params }: ReaderPageProps) {
 
           <Button size="lg" asChild={!isLastChapter} className="gap-2" disabled={isLastChapter}>
             {!isLastChapter ? (
-              <Link href={`/comic/${slug}/${chapter.chapter_number + 1}`}>
+              <Link href={`/truyen-tranh/${slug}/${chapter.chapter_number + 1}`}>
                 Sau
                 <ChevronRight className="h-5 w-5" aria-hidden="true" />
               </Link>

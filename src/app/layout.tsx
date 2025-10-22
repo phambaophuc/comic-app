@@ -1,5 +1,6 @@
 import { Suspense } from 'react';
 
+import { Analytics } from '@vercel/analytics/next';
 import { GeistMono } from 'geist/font/mono';
 import { GeistSans } from 'geist/font/sans';
 
@@ -23,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`font-sans ${GeistSans.variable} ${GeistMono.variable} flex min-h-screen flex-col`}
+        className={`font-sans antialiased ${GeistSans.variable} ${GeistMono.variable} flex min-h-screen flex-col bg-background text-foreground`}
       >
         <QueryProvider>
           <ThemeProvider
@@ -32,13 +33,14 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<div className="p-8 text-center">Loading...</div>}>
               <Header />
               <main className="flex-1">{children}</main>
               <Footer />
             </Suspense>
           </ThemeProvider>
         </QueryProvider>
+        <Analytics />
       </body>
     </html>
   );

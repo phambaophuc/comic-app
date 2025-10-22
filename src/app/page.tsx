@@ -1,30 +1,16 @@
-'use client';
-
-import { useState } from 'react';
-
 import { Clock, Star, TrendingUp } from 'lucide-react';
 
-import { useRouter, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 
-import { CategoryFilter, ComicCard, Container } from '@/components';
+import { ComicCard, Container, FeaturedComics } from '@/components';
 import { Button } from '@/components/ui/button';
-import { useComics } from '@/hooks';
+import { cms } from '@/services';
 
-export default function HomePage() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-
-  const [sortBy, setSortBy] = useState<'trending' | 'latest' | 'rating'>('trending');
-
-  const currentPage = parseInt(searchParams.get('page') || '1');
-  const { data: series } = useComics({ page: currentPage, limit: 20 });
-
-  const handlePageChange = (page: number) => {
-    const newSearchParams = new URLSearchParams(searchParams.toString());
-    newSearchParams.set('page', page.toString());
-    router.push(`?${newSearchParams.toString()}`, { scroll: false });
-  };
-
+export default async function HomePage() {
+  const [comics, hotcomics] = await Promise.all([
+    cms.getAll({ page: 1, limit: 20 }),
+    cms.getHotComics(8),
+  ]);
   return (
     <div className="py-8">
       <Container>
@@ -47,92 +33,47 @@ export default function HomePage() {
         </section>
 
         {/* Featured Comics Section */}
-        {/* <FeaturedComics title="Truyện nổi bật" comics={} /> */}
+        <FeaturedComics title="Truyện nổi bật" comics={hotcomics} />
 
         {/* Filters Section */}
         <section className="mb-8 space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <h2 className="text-2xl font-bold text-foreground">Danh sách truyện</h2>
             <div className="flex gap-2" aria-label="Sort comics">
-              <Button
-                variant={sortBy === 'trending' ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => setSortBy('trending')}
-                className="gap-2"
-                aria-label="Sort by trending"
-              >
-                <TrendingUp className="h-4 w-4" aria-hidden="true" />
-                Thịnh hành
-              </Button>
-              <Button
-                variant={sortBy === 'latest' ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => setSortBy('latest')}
-                className="gap-2"
-                aria-label="Sort by latest"
-              >
+              <Button variant="default" size="sm" className="gap-2" aria-label="Sort by latest">
                 <Clock className="h-4 w-4" aria-hidden="true" />
                 Mới nhất
               </Button>
-              <Button
-                variant={sortBy === 'rating' ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => setSortBy('rating')}
-                className="gap-2"
-                aria-label="Sort by rating"
-              >
+              <Button variant="outline" size="sm" className="gap-2" aria-label="Sort by trending">
+                <TrendingUp className="h-4 w-4" aria-hidden="true" />
+                Thịnh hành
+              </Button>
+              <Button variant="outline" size="sm" className="gap-2" aria-label="Sort by rating">
                 <Star className="h-4 w-4" aria-hidden="true" />
                 Đánh giá cao
               </Button>
             </div>
           </div>
-
-          <CategoryFilter onCategoryChange={() => {}} />
         </section>
 
         {/* Comics Grid */}
         <section aria-label="Comics list">
-          {series?.data && series?.data.length > 0 ? (
+          {comics?.data && comics?.data.length > 0 ? (
             <>
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
-                {series.data.map((comic) => (
+                {comics.data.map((comic) => (
                   <ComicCard key={comic.id} comic={comic} />
                 ))}
               </div>
 
               {/* Pagination - chỉ hiển thị khi có nhiều trang */}
-              {series.meta && series.meta.totalPages > 1 && (
-                <nav className="mt-12 flex justify-center" aria-label="Pagination">
-                  <div className="flex gap-2">
-                    {/* Previous button */}
-                    <Button
-                      variant="outline"
-                      onClick={() => handlePageChange(currentPage - 1)}
-                      disabled={currentPage <= 1}
-                    >
-                      Trước
-                    </Button>
-
-                    {/* Page numbers */}
-                    {Array.from({ length: series.meta.totalPages }, (_, i) => i + 1).map((page) => (
-                      <Button
-                        key={page}
-                        variant={page === currentPage ? 'default' : 'outline'}
-                        onClick={() => handlePageChange(page)}
-                      >
-                        {page}
-                      </Button>
-                    ))}
-
-                    {/* Next button */}
-                    <Button
-                      variant="outline"
-                      onClick={() => handlePageChange(currentPage + 1)}
-                      disabled={currentPage >= series.meta.totalPages}
-                    >
-                      Sau
-                    </Button>
-                  </div>
+              {comics.meta && comics.meta.totalPages > 1 && (
+                <nav className="mt-12 flex justify-center" aria-label="View more">
+                  <Button asChild variant="outline">
+                    <Link href={`/truyen-tranh`} aria-label="Comics">
+                      Xem thêm
+                    </Link>
+                  </Button>
                 </nav>
               )}
             </>
