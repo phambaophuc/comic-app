@@ -6,6 +6,5 @@ export * from './favourite-button';
 export * from './featured-comics';
 export * from './footer';
 export * from './header';
-export * from './HomePageClient';
 export * from './reader-navigation';
 export * from './theme-provider';
