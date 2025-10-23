@@ -5,8 +5,7 @@ import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { ReaderNavigation } from '@/components';
-import { Button } from '@/components/ui/button';
+import { Button, ReaderNavigation } from '@/components';
 import { cts } from '@/services';
 
 import RecentTracker from './RecentTracker';

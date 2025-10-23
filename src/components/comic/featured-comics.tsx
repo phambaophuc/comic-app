@@ -6,8 +6,8 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 import { Comic } from '@/types';
 
+import { Button } from '../ui';
 import { ComicCard } from './comic-card';
-import { Button } from './ui/button';
 
 interface FeaturedComicsProps {
   title?: string;

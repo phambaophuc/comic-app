@@ -2,8 +2,7 @@ import { Clock, Star, TrendingUp } from 'lucide-react';
 
 import Link from 'next/link';
 
-import { ComicCard } from '@/components/comic-card';
-import { Button } from '@/components/ui/button';
+import { Button, ComicCard } from '@/components';
 import { cms } from '@/services';
 
 export async function ComicsGrid() {

@@ -6,7 +6,7 @@ import { Heart } from 'lucide-react';
 
 import { Comic } from '@/types';
 
-import { Button } from './ui/button';
+import { Button } from './button';
 
 interface Props {
   comic: Comic;

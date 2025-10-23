@@ -5,8 +5,7 @@ import Link from 'next/link';
 import { formatDate } from '@/lib/dateUtils';
 import { Chapter } from '@/types';
 
-import { Button } from './ui/button';
-import { Card } from './ui/card';
+import { Button, Card } from '../ui';
 
 interface ChapterListProps {
   chapters: Chapter[];

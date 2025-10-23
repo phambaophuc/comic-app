@@ -7,9 +7,8 @@ import { useTheme } from 'next-themes';
 
 import Link from 'next/link';
 
+import { Button, Input } from '../ui';
 import { Container } from './container';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
 
 export function Header() {
   const { theme, setTheme } = useTheme();

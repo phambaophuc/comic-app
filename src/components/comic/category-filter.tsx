@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import { Button } from './ui/button';
+import { Button } from '../ui';
 
 const categories = [
   'Tất cả',
@@ -13,7 +13,7 @@ const categories = [
   'Kinh dị',
   'Hài hước',
   'Chính kịch',
-  'Đời thường'
+  'Đời thường',
 ];
 
 interface CategoryFilterProps {

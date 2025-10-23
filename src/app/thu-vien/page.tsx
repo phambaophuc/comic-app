@@ -4,8 +4,7 @@ import { useEffect, useState } from 'react';
 
 import { BookMarked, Clock, Heart, Trash2 } from 'lucide-react';
 
-import { ComicCard, Container } from '@/components';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { ComicCard, Container, Tabs, TabsContent, TabsList, TabsTrigger } from '@/components';
 import { Comic } from '@/types';
 
 export default function LibraryPage() {

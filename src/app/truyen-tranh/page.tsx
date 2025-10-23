@@ -6,8 +6,7 @@ import { Clock, Star, TrendingUp } from 'lucide-react';
 
 import { useRouter, useSearchParams } from 'next/navigation';
 
-import { CategoryFilter, ComicCard, Container } from '@/components';
-import { Button } from '@/components/ui/button';
+import { Button, CategoryFilter, ComicCard, Container } from '@/components';
 import { useComics } from '@/hooks';
 import { formatRelativeTime } from '@/lib/dateUtils';
 import { Comic } from '@/types';

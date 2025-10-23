@@ -7,18 +7,18 @@ import { BookMarked } from 'lucide-react';
 
 import Link from 'next/link';
 
-import { Container } from '@/components';
-import { Button } from '@/components/ui/button';
 import {
+  Button,
   Card,
   CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+  Container,
+  Input,
+  Label,
+} from '@/components';
 
 export default function RegisterPage() {
   const [name, setName] = useState('');
