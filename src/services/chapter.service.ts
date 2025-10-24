@@ -1,19 +1,9 @@
-import apiClient from '@/lib/api-client';
-import { APIResponse } from '@/types';
-import { GetChapterResponse } from '@/types/chapter.types';
+import { fetchApi } from '@/lib/fetchApi';
+import { GetChapterResponse } from '@/types';
 
-export class ChapterService {
-  private readonly basePath = '/chapters';
+const BASE_PATH = '/chapters';
 
-  /**
-   * Lấy danh sách hình ảnh với chapter number
-   */
-  async getByChapterNumber(slug: string, cn: string): Promise<GetChapterResponse> {
-    const response = await apiClient.get<APIResponse<GetChapterResponse>>(
-      `${this.basePath}/${slug}/${cn}`,
-    );
-    return response.data;
-  }
-}
-
-export const cts = new ChapterService();
+export const ChapterService = {
+  getByChapterNumber: (slug: string, cn: string) =>
+    fetchApi<GetChapterResponse>(`${BASE_PATH}/${slug}/${cn}`, { revalidate: 86400 }),
+};

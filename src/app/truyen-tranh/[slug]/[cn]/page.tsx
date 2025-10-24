@@ -6,7 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { Button, ReaderNavigation } from '@/components';
-import { cts } from '@/services';
+import { ChapterService } from '@/services';
 
 import RecentTracker from './RecentTracker';
 
@@ -17,9 +17,11 @@ interface ReaderPageProps {
   }>;
 }
 
+export const revalidate = 86400;
+
 export async function generateMetadata({ params }: ReaderPageProps): Promise<Metadata> {
   const { slug, cn } = await params;
-  const chapter = await cts.getByChapterNumber(slug, cn);
+  const chapter = await ChapterService.getByChapterNumber(slug, cn);
 
   return {
     title: `${chapter.series.title} - ${chapter.chapter_title}`,
@@ -34,7 +36,7 @@ export async function generateMetadata({ params }: ReaderPageProps): Promise<Met
 
 export default async function ReaderPage({ params }: ReaderPageProps) {
   const { slug, cn } = await params;
-  const chapter = await cts.getByChapterNumber(slug, cn);
+  const chapter = await ChapterService.getByChapterNumber(slug, cn);
 
   const isFirstChapter = chapter.chapter_number <= 1;
   const isLastChapter = chapter.chapter_number >= chapter.total_chapters;

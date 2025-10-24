@@ -5,11 +5,9 @@ import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { ChapterList, Container, FavoriteButton } from '@/components';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { formatDate } from '@/lib/dateUtils';
-import { cms } from '@/services';
+import { Badge, Button, ChapterList, Container, FavoriteButton } from '@/components';
+import { formatRelativeTime } from '@/lib/dateUtils';
+import { ComicService } from '@/services';
 
 interface ComicDetailPageProps {
   params: Promise<{
@@ -17,9 +15,11 @@ interface ComicDetailPageProps {
   }>;
 }
 
+export const relative = 3600;
+
 export async function generateMetadata({ params }: ComicDetailPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const comic = await cms.getBySlug(slug);
+  const comic = await ComicService.getBySlug(slug);
 
   return {
     title: comic.title,
@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: ComicDetailPageProps): Promis
 
 export default async function ComicDetailPage({ params }: ComicDetailPageProps) {
   const { slug } = await params;
-  const comic = await cms.getBySlug(slug);
+  const comic = await ComicService.getBySlug(slug);
 
   return (
     <>
@@ -141,7 +141,7 @@ export default async function ComicDetailPage({ params }: ComicDetailPageProps) 
 
               <div className="flex items-center gap-2 text-sm text-muted-foreground pt-2">
                 <Clock className="h-4 w-4" aria-hidden="true" />
-                <span>Cập nhật gần nhất: {formatDate(comic.updated_at)}</span>
+                <span>Cập nhật gần nhất: {formatRelativeTime(comic.updated_at)}</span>
               </div>
             </div>
           </div>

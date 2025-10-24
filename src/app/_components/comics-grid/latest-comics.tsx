@@ -3,10 +3,12 @@ import { Clock, Star, TrendingUp } from 'lucide-react';
 import Link from 'next/link';
 
 import { Button, ComicCard } from '@/components';
-import { cms } from '@/services';
+import { ComicService } from '@/services';
 
-export async function ComicsGrid() {
-  const comics = await cms.getAll({ page: 1, limit: 10 });
+export const revalidate = 600;
+
+export async function LatestComics() {
+  const comics = await ComicService.getLatest({ page: 1, limit: 10 });
 
   return (
     <>

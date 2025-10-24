@@ -1,1 +1,1 @@
-export * from './use-comic-queries';
+export * from './useComicQueries';

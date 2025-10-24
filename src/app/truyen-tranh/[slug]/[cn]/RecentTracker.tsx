@@ -2,8 +2,7 @@
 
 import { useEffect } from 'react';
 
-import { RecentComic } from '@/types';
-import { ChapterWithImagesAndComic } from '@/types/chapter.types';
+import { ChapterWithImagesAndComic, RecentComic } from '@/types';
 
 interface Props {
   chapter: ChapterWithImagesAndComic;
