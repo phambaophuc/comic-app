@@ -11,33 +11,54 @@ import { Button } from '../ui';
 
 interface ReaderNavigationProps {
   comicSlug: string;
+  comicTitle: string;
   chapterNumber: number;
-  totalChapters: number;
+  prevChapter?: number | null;
+  nextChapter?: number | null;
 }
 
 export function ReaderNavigation({
   comicSlug,
+  comicTitle,
   chapterNumber,
-  totalChapters,
+  prevChapter = null,
+  nextChapter = null,
 }: ReaderNavigationProps) {
   const router = useRouter();
 
-  const isPrev = chapterNumber > 1;
-  const isNext = chapterNumber < totalChapters;
+  const hasPrevChapter = prevChapter !== null;
+  const hasNextChapter = nextChapter !== null;
 
   // Keyboard navigation
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowLeft' && isPrev) {
-        router.push(`/truyen-tranh/${comicSlug}/${chapterNumber - 1}`);
-      } else if (e.key === 'ArrowRight' && isNext) {
-        router.push(`/truyen-tranh/${comicSlug}/${chapterNumber + 1}`);
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
+        return;
+      }
+
+      switch (e.key) {
+        case 'ArrowLeft':
+          if (hasPrevChapter) {
+            router.push(`/truyen-tranh/${comicSlug}/${prevChapter}`);
+          }
+          break;
+        case 'ArrowRight':
+          if (hasNextChapter) {
+            router.push(`/truyen-tranh/${comicSlug}/${nextChapter}`);
+          }
+          break;
+        case 'Home':
+          router.push(`/truyen-tranh/${comicSlug}`);
+          break;
+        case 'Escape':
+          router.push(`/truyen-tranh/${comicSlug}`);
+          break;
       }
     };
 
     window.addEventListener('keydown', handleKeyPress);
     return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [chapterNumber, comicSlug, isNext, isPrev, router]);
+  }, [comicSlug, hasNextChapter, hasPrevChapter, nextChapter, prevChapter, router]);
 
   return (
     <div className="sticky top-0 z-40 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -58,15 +79,26 @@ export function ReaderNavigation({
             </Button>
           </div>
 
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <span className="hidden sm:inline">Chương</span>
-            <span className="font-semibold text-foreground">
-              {chapterNumber} / {totalChapters}
-            </span>
+          <div className="flex items-center gap-2 text-sm">
+            {/* Desktop: Hiển thị đầy đủ */}
+            <div className="hidden sm:flex items-center gap-2">
+              <span className="max-w-[200px] truncate font-medium text-foreground">
+                {comicTitle}
+              </span>
+              <div className="h-4 w-px bg-border" />
+              <span className="text-muted-foreground whitespace-nowrap">
+                Chương <span className="font-semibold text-foreground">{chapterNumber}</span>
+              </span>
+            </div>
+
+            {/* Mobile: Chỉ hiển thị chapter */}
+            <div className="sm:hidden text-muted-foreground whitespace-nowrap">
+              Chương <span className="font-semibold text-foreground">{chapterNumber}</span>
+            </div>
           </div>
 
           <div className="flex items-center gap-2">
-            {isPrev ? (
+            {hasNextChapter ? (
               <Button variant="ghost" size="sm" asChild className="gap-1">
                 <Link href={`/truyen-tranh/${comicSlug}/${chapterNumber - 1}`}>
                   <ChevronLeft className="h-4 w-4" />
@@ -80,7 +112,7 @@ export function ReaderNavigation({
               </Button>
             )}
 
-            {isNext ? (
+            {hasNextChapter ? (
               <Button variant="default" size="sm" asChild className="gap-1">
                 <Link href={`/truyen-tranh/${comicSlug}/${chapterNumber + 1}`}>
                   <span className="hidden sm:inline">Sau</span>

@@ -1,14 +1,17 @@
 import { Suspense } from 'react';
 
 import { Analytics } from '@vercel/analytics/next';
-import { GeistMono } from 'geist/font/mono';
-import { GeistSans } from 'geist/font/sans';
 
 import type { Metadata } from 'next';
-import './globals.css';
+
+import { Manrope } from 'next/font/google';
 
 import { Footer, Header, ThemeProvider } from '@/components';
 import { QueryProvider } from '@/providers';
+
+import './globals.css';
+
+const manrope = Manrope({ subsets: ['vietnamese'], variable: '--font-sans' });
 
 export const metadata: Metadata = {
   title: 'Đọc truyện tranh online miễn phí - Manga, Manhwa, Manhua',
@@ -24,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`font-sans antialiased ${GeistSans.variable} ${GeistMono.variable} flex min-h-screen flex-col bg-background text-foreground`}
+        className={`${manrope.className} antialiased flex min-h-screen flex-col bg-background text-foreground`}
       >
         <QueryProvider>
           <ThemeProvider

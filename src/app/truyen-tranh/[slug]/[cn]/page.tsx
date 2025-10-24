@@ -38,8 +38,8 @@ export default async function ReaderPage({ params }: ReaderPageProps) {
   const { slug, cn } = await params;
   const chapter = await ChapterService.getByChapterNumber(slug, cn);
 
-  const isFirstChapter = chapter.chapter_number <= 1;
-  const isLastChapter = chapter.chapter_number >= chapter.total_chapters;
+  const hasPrevChapter = chapter.prev_chapter !== null;
+  const hasNextChapter = chapter.next_chapter !== null;
 
   return (
     <div className="min-h-screen bg-background">
@@ -47,8 +47,10 @@ export default async function ReaderPage({ params }: ReaderPageProps) {
 
       <ReaderNavigation
         comicSlug={slug}
+        comicTitle={chapter.series.title}
         chapterNumber={chapter.chapter_number}
-        totalChapters={chapter.total_chapters}
+        prevChapter={chapter.prev_chapter}
+        nextChapter={chapter.next_chapter}
       />
 
       {/* Reader Content */}
@@ -90,11 +92,11 @@ export default async function ReaderPage({ params }: ReaderPageProps) {
           <Button
             variant="outline"
             size="lg"
-            asChild={!isFirstChapter}
+            asChild={hasPrevChapter}
             className="gap-2 bg-transparent"
-            disabled={isFirstChapter}
+            disabled={!hasPrevChapter}
           >
-            {!isFirstChapter ? (
+            {hasPrevChapter ? (
               <Link href={`/truyen-tranh/${slug}/${chapter.chapter_number - 1}`}>
                 <ChevronLeft className="h-5 w-5" aria-hidden="true" />
                 Trước
@@ -107,8 +109,8 @@ export default async function ReaderPage({ params }: ReaderPageProps) {
             )}
           </Button>
 
-          <Button size="lg" asChild={!isLastChapter} className="gap-2" disabled={isLastChapter}>
-            {!isLastChapter ? (
+          <Button size="lg" asChild={hasNextChapter} className="gap-2" disabled={!hasNextChapter}>
+            {hasNextChapter ? (
               <Link href={`/truyen-tranh/${slug}/${chapter.chapter_number + 1}`}>
                 Sau
                 <ChevronRight className="h-5 w-5" aria-hidden="true" />

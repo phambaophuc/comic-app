@@ -1,5 +1,4 @@
-import { BookMarked } from 'lucide-react';
-
+import Image from 'next/image';
 import Link from 'next/link';
 
 import { Container } from './container';
@@ -12,9 +11,7 @@ export function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="space-y-3">
               <Link href="/" className="flex items-center gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-                  <BookMarked className="h-5 w-5 text-primary-foreground" />
-                </div>
+                <Image src="/logo.webp" alt="logo" width={40} height={40} className="w-10 h-10" />
                 <span className="text-xl font-bold text-foreground">Nguồn Truyện</span>
               </Link>
               <p className="text-sm text-muted-foreground leading-relaxed">

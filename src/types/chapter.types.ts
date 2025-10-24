@@ -6,5 +6,6 @@ export interface ChapterWithImagesAndComic extends Chapter {
 }
 
 export interface GetChapterResponse extends ChapterWithImagesAndComic {
-  total_chapters: number;
+  prev_chapter: number | null;
+  next_chapter: number | null;
 }
