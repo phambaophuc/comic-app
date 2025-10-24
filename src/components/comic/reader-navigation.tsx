@@ -100,7 +100,7 @@ export function ReaderNavigation({
           <div className="flex items-center gap-2">
             {hasNextChapter ? (
               <Button variant="ghost" size="sm" asChild className="gap-1">
-                <Link href={`/truyen-tranh/${comicSlug}/${chapterNumber - 1}`}>
+                <Link href={`/truyen-tranh/${comicSlug}/${prevChapter}`}>
                   <ChevronLeft className="h-4 w-4" />
                   <span className="hidden sm:inline">Trước</span>
                 </Link>
@@ -114,7 +114,7 @@ export function ReaderNavigation({
 
             {hasNextChapter ? (
               <Button variant="default" size="sm" asChild className="gap-1">
-                <Link href={`/truyen-tranh/${comicSlug}/${chapterNumber + 1}`}>
+                <Link href={`/truyen-tranh/${comicSlug}/${nextChapter}`}>
                   <span className="hidden sm:inline">Sau</span>
                   <ChevronRight className="h-4 w-4" />
                 </Link>

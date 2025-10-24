@@ -76,9 +76,7 @@ export default async function ReaderPage({ params }: ReaderPageProps) {
                   width={800}
                   height={1400}
                   className="w-full h-auto"
-                  priority
-                  loading="eager"
-                  unoptimized
+                  priority={index < 3}
                 />
               </div>
             ))}
@@ -97,7 +95,7 @@ export default async function ReaderPage({ params }: ReaderPageProps) {
             disabled={!hasPrevChapter}
           >
             {hasPrevChapter ? (
-              <Link href={`/truyen-tranh/${slug}/${chapter.chapter_number - 1}`}>
+              <Link href={`/truyen-tranh/${slug}/${chapter.prev_chapter}`}>
                 <ChevronLeft className="h-5 w-5" aria-hidden="true" />
                 Trước
               </Link>
@@ -111,7 +109,7 @@ export default async function ReaderPage({ params }: ReaderPageProps) {
 
           <Button size="lg" asChild={hasNextChapter} className="gap-2" disabled={!hasNextChapter}>
             {hasNextChapter ? (
-              <Link href={`/truyen-tranh/${slug}/${chapter.chapter_number + 1}`}>
+              <Link href={`/truyen-tranh/${slug}/${chapter.next_chapter}`}>
                 Sau
                 <ChevronRight className="h-5 w-5" aria-hidden="true" />
               </Link>
