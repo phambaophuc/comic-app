@@ -141,7 +141,10 @@ export default async function ComicDetailPage({ params }: ComicDetailPageProps) 
 
               <div className="flex items-center gap-2 text-sm text-muted-foreground pt-2">
                 <Clock className="h-4 w-4" aria-hidden="true" />
-                <span>Cập nhật gần nhất: {formatRelativeTime(comic.updated_at)}</span>
+                <span>
+                  Cập nhật gần nhất:{' '}
+                  {comic.last_update ? formatRelativeTime(comic.last_update) : 'Sắp ra mắt'}
+                </span>
               </div>
             </div>
           </div>

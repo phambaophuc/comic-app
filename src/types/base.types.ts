@@ -1,7 +1,7 @@
 interface BaseType {
   id: string;
   created_at: string;
-  updated_at: Date;
+  updated_at: string;
 }
 
 export interface Comic extends BaseType {
@@ -14,6 +14,7 @@ export interface Comic extends BaseType {
   views: number;
   status: string;
   genres: string[];
+  last_update: string | null;
 }
 
 export interface Chapter extends Omit<BaseType, 'updated_at'> {

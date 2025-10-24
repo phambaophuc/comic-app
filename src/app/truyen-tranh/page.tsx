@@ -76,7 +76,7 @@ export default function Page() {
                   <ComicCard comic={comic} />
 
                   <span className="absolute top-2 left-2 bg-primary text-primary-foreground text-xs font-medium px-2 py-0.5 rounded-full shadow-sm">
-                    {formatRelativeTime(comic.updated_at)}
+                    {comic.last_update ? formatRelativeTime(comic.last_update) : 'Sắp ra mắt'}
                   </span>
                 </div>
               ))}
