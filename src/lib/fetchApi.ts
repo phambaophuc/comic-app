@@ -10,6 +10,7 @@ export async function fetchApi<T>(
   const res = await fetch(`${baseUrl}${path}`, {
     ...options,
     next: revalidate ? { revalidate } : undefined,
+    cache: revalidate ? undefined : 'force-cache',
   });
 
   if (!res.ok) throw new Error(`API error: ${res.statusText}`);
