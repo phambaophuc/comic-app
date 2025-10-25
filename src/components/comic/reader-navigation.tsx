@@ -98,7 +98,7 @@ export function ReaderNavigation({
           </div>
 
           <div className="flex items-center gap-2">
-            {hasNextChapter ? (
+            {hasPrevChapter ? (
               <Button variant="ghost" size="sm" asChild className="gap-1">
                 <Link href={`/truyen-tranh/${comicSlug}/${prevChapter}`}>
                   <ChevronLeft className="h-4 w-4" />
