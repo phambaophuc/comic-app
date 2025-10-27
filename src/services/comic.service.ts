@@ -1,10 +1,10 @@
 import { buildQueryString, fetchApi } from '@/lib/fetchApi';
-import { Comic, ComicWithChapters, PaginatedAPIResponse, PaginationParams } from '@/types';
+import { Comic, ComicWithChapters, FindAllParams, PaginatedAPIResponse } from '@/types';
 
 const BASE_PATH = '/comics';
 
 export const ComicService = {
-  getLatest: (params?: PaginationParams) => {
+  getLatest: (params?: FindAllParams) => {
     const query = params ? buildQueryString(params) : '';
     return fetchApi<PaginatedAPIResponse<ComicWithChapters>>(`${BASE_PATH}${query}`, {
       revalidate: 600,

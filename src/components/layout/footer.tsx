@@ -8,7 +8,7 @@ export function Footer() {
     <footer className="border-t border-border bg-card mt-auto">
       <Container>
         <div className="py-12">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="space-y-3">
               <Link href="/" className="flex items-center gap-2">
                 <Image src="/logo.webp" alt="logo" width={40} height={40} className="w-10 h-10" />
@@ -54,7 +54,7 @@ export function Footer() {
               <ul className="space-y-2 text-sm">
                 <li>
                   <Link
-                    href="/"
+                    href="/truyen-tranh?page=1&genres=Action"
                     className="text-muted-foreground hover:text-foreground transition-colors"
                   >
                     Hành động
@@ -62,7 +62,7 @@ export function Footer() {
                 </li>
                 <li>
                   <Link
-                    href="/"
+                    href="/truyen-tranh?page=1&genres=Romance"
                     className="text-muted-foreground hover:text-foreground transition-colors"
                   >
                     Lãng mạn
@@ -70,40 +70,10 @@ export function Footer() {
                 </li>
                 <li>
                   <Link
-                    href="/"
+                    href="/truyen-tranh?page=1&genres=Fantasy"
                     className="text-muted-foreground hover:text-foreground transition-colors"
                   >
                     Giả tưởng
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="font-semibold mb-3 text-foreground">Hỗ trợ</h3>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <Link
-                    href="/"
-                    className="text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    Trung tâm trợ giúp
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/"
-                    className="text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    Điều khoản dịch vụ
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/"
-                    className="text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    Chính sách bảo mật
                   </Link>
                 </li>
               </ul>

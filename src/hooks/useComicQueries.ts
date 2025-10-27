@@ -1,7 +1,7 @@
-import { useQuery, UseQueryOptions } from '@tanstack/react-query';
+import { keepPreviousData, useQuery, UseQueryOptions } from '@tanstack/react-query';
 
 import { ComicService } from '@/services';
-import { ComicWithChapters, PaginatedAPIResponse, PaginationParams } from '@/types';
+import { ComicWithChapters, FindAllParams, PaginatedAPIResponse } from '@/types';
 
 // ============================================
 // COMIC HOOKS
@@ -10,16 +10,18 @@ import { ComicWithChapters, PaginatedAPIResponse, PaginationParams } from '@/typ
 export const COMIC_KEYS = {
   all: ['manga-series'] as const,
   lists: () => [...COMIC_KEYS.all, 'list'] as const,
-  list: (params?: PaginationParams) => [...COMIC_KEYS.lists(), params] as const,
+  list: (params?: FindAllParams) => [...COMIC_KEYS.lists(), params] as const,
 };
 
 export function useComics(
-  params?: PaginationParams,
+  params?: FindAllParams,
   options?: Omit<UseQueryOptions<PaginatedAPIResponse<ComicWithChapters>>, 'queryKey' | 'queryFn'>,
 ) {
   return useQuery({
     queryKey: COMIC_KEYS.list(params),
     queryFn: () => ComicService.getLatest(params),
+    placeholderData: keepPreviousData,
+    staleTime: 5000,
     ...options,
   });
 }
