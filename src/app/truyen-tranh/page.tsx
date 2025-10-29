@@ -71,10 +71,9 @@ export default function Page() {
 
   return (
     <Container className="py-8">
-      {/* Filters Section */}
       <section className="mb-8 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <h2 className="text-2xl font-bold text-foreground">Truyện mới nhất</h2>
+          <h2 className="text-2xl font-bold text-foreground">Truyện mới cập nhật</h2>
           <ComicsSortButtons sortBy={sortBy} onSortChange={handleSortChange} />
         </div>
 
@@ -84,7 +83,6 @@ export default function Page() {
         />
       </section>
 
-      {/* Comics Grid */}
       <section aria-label="Comics list">
         {showLoading ? (
           <LoadingSkeleton />

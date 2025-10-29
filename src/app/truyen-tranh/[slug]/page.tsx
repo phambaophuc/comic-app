@@ -9,13 +9,13 @@ import { Badge, Button, ChapterList, Container, FavoriteButton } from '@/compone
 import { formatRelativeTime } from '@/lib/dateUtils';
 import { ComicService } from '@/services';
 
+import { ComicDescription } from './_components';
+
 interface ComicDetailPageProps {
   params: Promise<{
     slug: string;
   }>;
 }
-
-export const relative = 3600;
 
 export async function generateMetadata({ params }: ComicDetailPageProps): Promise<Metadata> {
   const { slug } = await params;
@@ -38,7 +38,6 @@ export default async function ComicDetailPage({ params }: ComicDetailPageProps) 
 
   return (
     <>
-      {/* Banner Section */}
       <div itemScope className="relative h-[300px] md:h-[400px] w-full overflow-hidden">
         <Image
           src={comic.cover_url || '/placeholder.svg'}
@@ -53,9 +52,7 @@ export default async function ComicDetailPage({ params }: ComicDetailPageProps) 
 
       <Container>
         <div className="relative -mt-32 md:-mt-40 pb-12">
-          {/* Comic Info Card */}
           <div className="flex flex-col md:flex-row gap-6 md:gap-8">
-            {/* Cover Image */}
             <div className="flex-shrink-0">
               <div className="relative w-48 md:w-56 aspect-[3/4] rounded-xl overflow-hidden shadow-2xl border-4 border-background">
                 <Image
@@ -69,7 +66,6 @@ export default async function ComicDetailPage({ params }: ComicDetailPageProps) 
               </div>
             </div>
 
-            {/* Info */}
             <div className="flex-1 space-y-4">
               <div>
                 <h1 className="text-3xl md:text-4xl font-bold mb-2 text-balance text-foreground">
@@ -134,12 +130,7 @@ export default async function ComicDetailPage({ params }: ComicDetailPageProps) 
                 <FavoriteButton comic={comic} />
               </div>
 
-              <div className="pt-4">
-                <h2 className="text-sm font-semibold text-muted-foreground mb-2">MÔ TẢ</h2>
-                <p className="text-foreground leading-relaxed" itemProp="description">
-                  {comic.description}
-                </p>
-              </div>
+              <ComicDescription description={comic.description ?? ''} />
 
               <div className="flex items-center gap-2 text-sm text-muted-foreground pt-2">
                 <Clock className="h-4 w-4" aria-hidden="true" />
@@ -151,7 +142,6 @@ export default async function ComicDetailPage({ params }: ComicDetailPageProps) 
             </div>
           </div>
 
-          {/* Chapters Section */}
           <section className="mt-12">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-2xl font-bold text-foreground">Danh sách chương</h2>
