@@ -35,12 +35,10 @@ export const FeaturedComics = memo(function FeaturedComics({
   };
 
   return (
-    <section className="relative">
-      {/* Title */}
+    <section className="relative mb-5">
       <div className="mb-6 flex items-center justify-between">
         <h2 className="text-2xl font-bold text-foreground">{title}</h2>
 
-        {/* Desktop scroll buttons */}
         <div className="hidden gap-2 md:flex">
           <Button variant="outline" size="icon" onClick={() => scroll('left')} className="h-9 w-9">
             <ChevronLeft className="h-4 w-4" />
@@ -53,22 +51,20 @@ export const FeaturedComics = memo(function FeaturedComics({
         </div>
       </div>
 
-      {/* Horizontal scroll container */}
       <div
         ref={scrollContainerRef}
         className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4 scrollbar-hide"
       >
-        {comics.map((comic) => (
+        {comics.map((comic, index) => (
           <div
             key={comic.id}
             className="w-[160px] flex-shrink-0 snap-start sm:w-[180px] md:w-[200px]"
           >
-            <ComicCard comic={comic} />
+            <ComicCard comic={comic} index={index} />
           </div>
         ))}
       </div>
 
-      {/* Custom scrollbar hide styles */}
       <style jsx>{`
         .scrollbar-hide::-webkit-scrollbar {
           display: none;

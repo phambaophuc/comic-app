@@ -11,4 +11,6 @@ export interface RecentComic extends Comic {
 
 export interface FindAllParams extends PaginationParams {
   genres?: string[];
+  sort?: 'views' | 'last_update';
+  order?: 'asc' | 'desc';
 }

@@ -1,6 +1,6 @@
 import { Container } from '@/components';
 
-import { HeroSection, HotComics, LatestComics } from './_components';
+import { HeroSection, HotComics, LatestComics, ManhuaComics, ManhwaComics } from './_components';
 
 export default async function HomePage() {
   return (
@@ -8,6 +8,8 @@ export default async function HomePage() {
       <Container>
         <HeroSection />
         <HotComics />
+        <ManhuaComics />
+        <ManhwaComics />
         <LatestComics />
       </Container>
     </div>

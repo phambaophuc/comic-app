@@ -93,7 +93,7 @@ export default function LibraryPage() {
                       <ComicCard comic={comic} />
                       <button
                         onClick={() => handleRemoveRecent(comic.id)}
-                        className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity bg-destructive text-destructive-foreground rounded-full p-1"
+                        className="absolute top-2 right-2 opacity-100 transition-opacity bg-destructive text-destructive-foreground rounded-full p-1"
                         title="Xóa truyện này"
                       >
                         <Trash2 className="h-4 w-4" />

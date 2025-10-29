@@ -14,7 +14,9 @@ export function HeroSection() {
             Khám phá hàng nghìn câu chuyện hấp dẫn thuộc mọi thể loại.
           </p>
           <Button size="lg" className="rounded-full" asChild>
-            <Link href="/truyen-tranh">Khám phá ngay</Link>
+            <Link href="/truyen-tranh" aria-label="Khám phá ngay các truyện tranh mới nhất">
+              Khám phá ngay
+            </Link>
           </Button>
         </div>
       </div>

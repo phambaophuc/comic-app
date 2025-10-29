@@ -30,7 +30,7 @@ export default function Page() {
     isFetching,
   } = useComics({
     page: currentPage,
-    limit: 20,
+    limit: 18,
     genres: currentGenres.length > 0 ? currentGenres : undefined,
   });
 

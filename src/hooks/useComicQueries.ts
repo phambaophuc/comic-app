@@ -19,7 +19,7 @@ export function useComics(
 ) {
   return useQuery({
     queryKey: COMIC_KEYS.list(params),
-    queryFn: () => ComicService.getLatest(params),
+    queryFn: () => ComicService.getComics(params),
     placeholderData: keepPreviousData,
     staleTime: 5000,
     ...options,
