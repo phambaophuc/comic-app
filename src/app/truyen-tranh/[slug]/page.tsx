@@ -7,6 +7,7 @@ import Link from 'next/link';
 
 import { Badge, Button, ChapterList, Container, FavoriteButton } from '@/components';
 import { formatRelativeTime } from '@/lib/dateUtils';
+import { formatNumber } from '@/lib/formatNumber';
 import { ComicService } from '@/services';
 
 import { ComicDescription } from './_components';
@@ -95,15 +96,13 @@ export default async function ComicDetailPage({ params }: ComicDetailPageProps) 
                 </div>
                 <div className="flex items-center gap-2">
                   <Eye className="h-5 w-5 text-muted-foreground" aria-hidden="true" />
-                  <span className="font-semibold text-foreground">
-                    {(comic.views / 1000000).toFixed(1)}M
-                  </span>
+                  <span className="font-semibold text-foreground">{formatNumber(comic.views)}</span>
                   <span className="text-muted-foreground">Lượt xem</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Heart className="h-5 w-5 text-muted-foreground" aria-hidden="true" />
                   <span className="font-semibold text-foreground">
-                    {(10000 / 1000).toFixed(0)}K
+                    {formatNumber((comic.views / 4) * 2)}
                   </span>
                   <span className="text-muted-foreground">Yêu thích</span>
                 </div>
