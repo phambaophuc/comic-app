@@ -1,10 +1,11 @@
 import Link from 'next/link';
 
 import { Button, ComicCard } from '@/components';
+import { formatRelativeTime } from '@/lib/dateUtils';
 import { ComicService } from '@/services';
 
 export async function LatestComics() {
-  const comics = await ComicService.getComics({ page: 1, limit: 6 }, 600);
+  const comics = await ComicService.getComics({ page: 1, limit: 12 }, 600);
   return (
     <>
       <section className="mb-8 space-y-6" aria-label="Filter">
@@ -15,9 +16,17 @@ export async function LatestComics() {
       <section aria-label="Comics list">
         {comics?.data?.length > 0 ? (
           <>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
               {comics.data.map((comic, index) => (
-                <ComicCard key={comic.id} comic={comic} index={index} />
+                <div key={comic.id} className="relative">
+                  <ComicCard
+                    comic={{ ...comic, lastChapter: comic.chapters[0].chapter_number }}
+                    index={index}
+                  />
+                  <span className="absolute top-2 left-2 bg-primary text-primary-foreground text-xs font-medium px-2 py-0.5 rounded-full shadow-sm">
+                    {comic.last_update ? formatRelativeTime(comic.last_update) : 'Sắp ra mắt'}
+                  </span>
+                </div>
               ))}
             </div>
             {comics.meta?.totalPages > 1 && (
