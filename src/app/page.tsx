@@ -18,7 +18,7 @@ export default async function HomePage() {
             <LatestComics />
           </div>
           <aside className="lg:col-span-1">
-            <div className="space-y-6 sticky top-24">
+            <div className="space-y-6 sticky top-10">
               <TopRankingsTabbed todayComics={data} weekComics={data} />
             </div>
           </aside>
